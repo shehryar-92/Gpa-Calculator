@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GPA Calculator — Report Card</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="ledger-lines" aria-hidden="true"></div>
+
+  <header class="masthead">
+    <div class="masthead-inner">
+      <p class="eyebrow">Academic Record</p>
+      <h1>GPA Calculator</h1>
+      <p class="subtitle">Log your courses. Watch the stamp update.</p>
+    </div>
+  </header>
+
+  <main class="layout">
+
+    <!-- LEDGER: course entry table -->
+    <section class="ledger" aria-labelledby="ledger-heading">
+      <div class="ledger-head">
+        <h2 id="ledger-heading">Course Ledger</h2>
+        <label class="scale-toggle">
+          <input type="checkbox" id="weightedToggle">
+          <span>Weighted scale (Honors/AP +1.0)</span>
+        </label>
+      </div>
+
+      <div class="table-wrap">
+        <table id="courseTable">
+          <thead>
+            <tr>
+              <th class="col-name">Course</th>
+              <th class="col-credits">Credits</th>
+              <th class="col-grade">Grade</th>
+              <th class="col-honors">Honors</th>
+              <th class="col-remove"><span class="sr-only">Remove</span></th>
+            </tr>
+          </thead>
+          <tbody id="courseRows">
+            <!-- rows injected by script.js -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="empty-state" id="emptyState">
+        <p>No courses yet — add your first one below.</p>
+      </div>
+
+      <button class="btn btn-add" id="addRowBtn" type="button">+ Add course</button>
+
+      <div class="ledger-actions">
+        <button class="btn btn-secondary" id="saveSemesterBtn" type="button">Save semester &amp; start new</button>
+        <button class="btn btn-ghost" id="clearAllBtn" type="button">Clear all</button>
+      </div>
+    </section>
+
+    <!-- REPORT CARD: live GPA readout -->
+    <aside class="report-card" aria-labelledby="report-heading">
+      <h2 id="report-heading">Report Card</h2>
+
+      <div class="stamp-wrap">
+        <div class="stamp" id="gpaStamp" style="--pct: 0;">
+          <div class="stamp-inner">
+            <span class="stamp-value" id="gpaValue">—</span>
+            <span class="stamp-label">Semester GPA</span>
+          </div>
+        </div>
+      </div>
+
+      <dl class="stat-list">
+        <div class="stat-row">
+          <dt>Credits this semester</dt>
+          <dd id="totalCredits">0</dd>
+        </div>
+        <div class="stat-row">
+          <dt>Quality points</dt>
+          <dd id="qualityPoints">0.00</dd>
+        </div>
+        <div class="stat-row stat-row-strong">
+          <dt>Cumulative GPA</dt>
+          <dd id="cumulativeGpa">—</dd>
+        </div>
+      </dl>
+
+      <div class="history" id="historyBlock">
+        <h3>Saved semesters</h3>
+        <ul id="historyList" class="history-list"></ul>
+      </div>
+    </aside>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>Data is stored only in this browser. Nothing leaves your device.</p>
+  </footer>
+
+  <template id="rowTemplate">
+    <tr>
+      <td class="col-name">
+        <input type="text" class="course-name" placeholder="e.g. Organic Chemistry" maxlength="60">
+      </td>
+      <td class="col-credits">
+        <input type="number" class="course-credits" min="0.5" max="6" step="0.5" placeholder="3">
+      </td>
+      <td class="col-grade">
+        <select class="course-grade">
+          <option value="">—</option>
+          <option value="4.0">A+</option>
+          <option value="4.0">A</option>
+          <option value="3.5">B+</option>
+          <option value="3.0">B</option>
+          <option value="2.5">C+</option>
+          <option value="2.0">C</option>
+          <option value="1.5">D+</option>
+          <option value="1.0">D</option>
+          <option value="0.0">F</option>
+        </select>
+      </td>
+      <td class="col-honors">
+        <input type="checkbox" class="course-honors" title="Honors / AP course">
+      </td>
+      <td class="col-remove">
+        <button type="button" class="row-remove" title="Remove course">&times;</button>
+      </td>
+    </tr>
+  </template>
+
+    <script src="script.js"></script>
+    
+</body>
+</html>
