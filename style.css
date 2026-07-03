@@ -1,0 +1,494 @@
+:root {
+  --ink: #1B2A4A;
+  --ink-soft: #364766;
+  --paper: #FAF8F3;
+  --paper-dim: #EFEBE1;
+  --gold: #C9A227;
+  --gold-soft: #E8D48A;
+  --red: #B84C4C;
+  --green: #4C7C59;
+  --line: rgba(27, 42, 74, 0.14);
+
+  --font-display: "Source Serif 4", "Iowan Old Style", Georgia, serif;
+  --font-body: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-mono: "IBM Plex Mono", "Courier New", monospace;
+
+  --radius: 6px;
+  --shadow-card: 0 1px 0 var(--line), 0 8px 24px -12px rgba(27, 42, 74, 0.35);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+/* subtle ledger-line texture across the whole page */
+.ledger-lines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 35px,
+    var(--line) 35px,
+    var(--line) 36px
+  );
+  opacity: 0.5;
+}
+
+.masthead {
+  position: relative;
+  z-index: 1;
+  background: var(--ink);
+  color: var(--paper);
+  border-bottom: 3px solid var(--gold);
+}
+
+.masthead-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 2.75rem 1.5rem 2.25rem;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-soft);
+  margin: 0 0 0.5rem;
+}
+
+.masthead h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2rem, 4vw, 2.9rem);
+  margin: 0 0 0.35rem;
+  letter-spacing: -0.01em;
+}
+
+.subtitle {
+  margin: 0;
+  color: rgba(250, 248, 243, 0.7);
+  font-size: 1rem;
+}
+
+
+.layout {
+  position: relative;
+  z-index: 1;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 3rem;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 1.75rem;
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+.ledger {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  padding: 1.5rem;
+}
+
+.ledger-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.ledger-head h2,
+.report-card h2 {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+.scale-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  cursor: pointer;
+  user-select: none;
+}
+
+.scale-toggle input {
+  accent-color: var(--gold);
+  width: 15px;
+  height: 15px;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 480px;
+}
+
+thead th {
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding: 0 0.5rem 0.6rem;
+  border-bottom: 2px solid var(--ink);
+}
+
+.col-credits, .col-grade, .col-honors, .col-remove { text-align: center; }
+.col-credits { width: 90px; }
+.col-grade { width: 90px; }
+.col-honors { width: 70px; }
+.col-remove { width: 40px; }
+
+tbody tr {
+  border-bottom: 1px solid var(--line);
+}
+
+tbody td {
+  padding: 0.5rem;
+  vertical-align: middle;
+}
+
+input, select {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 0.4rem 0.45rem;
+  width: 100%;
+}
+
+input:hover, select:hover { border-color: var(--line); }
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--gold);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.18);
+}
+
+input.invalid {
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px rgba(184, 76, 76, 0.14);
+}
+
+.course-credits, .course-grade { text-align: center; }
+.course-honors {
+  width: 17px;
+  height: 17px;
+  accent-color: var(--gold);
+  margin: 0 auto;
+  display: block;
+}
+
+.row-remove {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--ink-soft);
+  cursor: pointer;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+}
+
+.row-remove:hover { color: var(--red); background: rgba(184, 76, 76, 0.08); }
+
+.empty-state {
+  display: none;
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--ink-soft);
+  font-style: italic;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  margin-top: 0.5rem;
+}
+
+.empty-state.visible { display: block; }
+
+/* ========================================================
+   Buttons
+   ======================================================== */
+.btn {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  padding: 0.6rem 1rem;
+  border-radius: 4px;
+  border: 1px solid var(--ink);
+  cursor: pointer;
+  transition: transform 0.08s ease, background 0.15s ease;
+}
+
+.btn:active { transform: translateY(1px); }
+
+.btn-add {
+  background: var(--ink);
+  color: var(--paper);
+  margin-top: 1rem;
+}
+.btn-add:hover { background: var(--ink-soft); }
+
+.ledger-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+
+.btn-secondary {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--ink);
+}
+.btn-secondary:hover { background: var(--gold-soft); }
+
+.btn-ghost {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--ink-soft);
+}
+.btn-ghost:hover { border-color: var(--red); color: var(--red); }
+
+/* ========================================================
+   Report card (stamp + stats)
+   ======================================================== */
+.report-card {
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  padding: 1.75rem;
+  position: sticky;
+  top: 1.5rem;
+}
+
+.report-card h2 { color: var(--paper); }
+
+.stamp-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0 1.75rem;
+}
+
+.stamp {
+  --pct: 0;
+  width: 168px;
+  height: 168px;
+  border-radius: 50%;
+  background: conic-gradient(var(--gold) calc(var(--pct) * 1%), rgba(250,248,243,0.12) 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.4s ease;
+  position: relative;
+}
+
+.stamp::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border-radius: 50%;
+  border: 1px dashed rgba(250, 248, 243, 0.3);
+}
+
+.stamp-inner {
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  background: var(--ink);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--gold);
+}
+
+.stamp-value {
+  font-family: var(--font-mono);
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: var(--gold-soft);
+  line-height: 1;
+}
+
+.stamp-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(250, 248, 243, 0.55);
+  margin-top: 0.4rem;
+}
+
+.stat-list {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.88rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid rgba(250, 248, 243, 0.14);
+}
+
+.stat-row dt { color: rgba(250, 248, 243, 0.65); }
+.stat-row dd {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-weight: 600;
+}
+
+.stat-row-strong dd {
+  color: var(--gold-soft);
+  font-size: 1.05rem;
+}
+
+.history {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(250, 248, 243, 0.14);
+}
+
+.history h3 {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(250, 248, 243, 0.55);
+  margin: 0 0 0.6rem;
+}
+
+.history-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+.history-list li {
+  display: flex;
+  justify-content: space-between;
+  color: rgba(250, 248, 243, 0.8);
+}
+
+.history-empty {
+  color: rgba(250, 248, 243, 0.4);
+  font-style: italic;
+}
+
+.site-footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+}
+
+/* ========================================================
+   Mobile: table -> stacked cards
+   ======================================================== */
+@media (max-width: 620px) {
+  .masthead-inner { padding: 2rem 1.25rem 1.75rem; }
+  .layout { padding: 1.5rem 1.25rem 2.5rem; gap: 1.25rem; }
+  .ledger, .report-card { padding: 1.25rem; }
+  .report-card { position: static; }
+
+  table, thead, tbody, tr, td { display: block; width: 100%; }
+  thead { display: none; }
+  tbody tr {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+    position: relative;
+  }
+  tbody td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.3rem 0;
+    border: none;
+  }
+  tbody td.col-name::before { content: "Course"; }
+  tbody td.col-credits::before { content: "Credits"; }
+  tbody td.col-grade::before { content: "Grade"; }
+  tbody td.col-honors::before { content: "Honors"; }
+  tbody td::before {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    flex-shrink: 0;
+    width: 70px;
+  }
+  tbody td.col-remove {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: auto;
+    padding: 0;
+  }
+  input, select { text-align: right; }
+  .course-honors, .row-remove { margin-left: auto; }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .stamp { transition: none; }
+  .btn { transition: none; }
+}
