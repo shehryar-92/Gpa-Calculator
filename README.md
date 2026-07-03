@@ -58,5 +58,5 @@ Enable **Weighted scale** to add +1.0 to any course marked Honors/AP.
   
 ## out of scope for v1
 
-- Accounts, cloud sync, multi-device support
+- Accounts and stuff etc
 
