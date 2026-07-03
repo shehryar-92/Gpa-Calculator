@@ -51,8 +51,12 @@ python3 -m http.server 8000
 
 Enable **Weighted scale** to add +1.0 to any course marked Honors/AP.
 
-## Roadmap / out of scope for v1
+## Roadmap / Might Add Later
 
-- Accounts, cloud sync, multi-device support
 - Custom/alternate grading scales
 - PDF or transcript export
+  
+## out of scope for v1
+
+- Accounts, cloud sync, multi-device support
+
